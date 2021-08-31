@@ -7,7 +7,7 @@ class Button extends Component {
             <>
                 <div>
                     <button className="btn btn-outline-primary" onClick={this.props.clickContinue}>Continuer</button>
-                    <button className="btn btn-outline-primary">Stop</button>
+                    <button className="btn btn-outline-primary" onClick={this.props.clickStop} >Stop</button>
                 </div>
             </>
         )

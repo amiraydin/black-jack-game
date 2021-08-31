@@ -13,7 +13,7 @@ class App extends Component {
       newCard: '',
       // suits : [❤🖤]
       totalPlayer: '',
-      totalBanque: ''
+      totalBanque: []
     }
   }
 
@@ -23,10 +23,9 @@ class App extends Component {
       const randomCards = Math.floor(Math.random() * this.state.cards.length);
       array.push(this.state.cards[randomCards])
       // this.setState({ startingCards: [...this.state.startingCards, 2] })
-      console.log('hi', i);
-
     }
     this.setState({ startingCards: array })
+    // this.setState({ totalBanque: array })
     // if (condition) {
 
     // }
@@ -37,6 +36,12 @@ class App extends Component {
 
   }
 
+  clickStop = (ele) => {
+    ele.preventDefault()
+    const ordi = Math.floor(Math.random() * this.state.cards.length)
+    this.setState({ totalBanque: [...this.state.totalBanque, this.state.cards[ordi]] })
+  }
+
   clickContinue = (e) => {
     e.preventDefault()
     const newCard = Math.floor(Math.random() * this.state.cards.length);
@@ -44,27 +49,24 @@ class App extends Component {
   }
 
   render() {
-    // const randomCards = Math.floor(Math.random() * this.state.cards.length - 1) + 1;
-    // const randomCards2 = Math.floor(Math.random() * this.state.cards.length - 1) + 1;
-    console.log('hello', this.state.startingCards);
+    console.log('cards', this.state.startingCards);
+    console.log('banque', this.state.totalBanque);
     return (
       <>
         <h1>Black Jack Game</h1>
         <div className='container'>
-          {this.state.startingCards.map((el, index) => (
-            // <div key={index}>
-            <Cards key={index} startCard={el} />
 
-            // </div>
+          <div>
+            {this.state.startingCards.map((el, index) => (
+              <Cards key={index} startCard={el} />
+            ))}
+          </div>
+          {this.state.totalBanque.map((el, index) => (
+            <Cards key={index} startCard={el} />
           ))}
 
-          <Button clickContinue={this.clickContinue} />
-          {/* <div>
-            <Cards clickContinue={this.clickContinue} startCard2={this.state.cards[randomCards2]} />
+          <Button clickContinue={this.clickContinue} clickStop={this.clickStop} />
 
-          </div> */}
-          {/* <Cards startCard2={this.randomCards2} /> */}
-          {/* <Button /> */}
         </div>
       </>
     )
