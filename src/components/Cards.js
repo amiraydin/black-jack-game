@@ -6,9 +6,8 @@ class Cards extends Component {
     render() {
         // this.setState({ startingCards: this.state.cards[randomCards] })
 
-        console.log(this.props);
         return (
-            <div className='container'>
+            <div className='cart'>
 
                 <div>
                     <div>

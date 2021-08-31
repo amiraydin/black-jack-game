@@ -1,52 +1,52 @@
 import React, { Component } from 'react';
 import Cards from './components/Cards';
 import Button from './components/Button';
-import Interface from './components/Interface';
 import "bootstrap/dist/css/bootstrap.min.css";
-// import deck from './components/Deck'
-// console.log(deck)
-
-const deck = ['2Co', '2Ca', '2Pi', '2Tr', '3Co', '3Ca',
-  '6Pi', '6Tr', '7Co', '7Ca', '7Pi', '7Tr',
-  '8Co', '8Ca', '8Pi', '8Tr', '9Co', '9Ca',
-  '9Pi', '9Tr', '10Co', '10Ca', '10Pi', '10Tr',
-  '11Co', '11Ca', '11Pi', '11Tr', 'JCo', 'JCa',
-  'JPi', 'JTr', 'QCo', 'QCa', 'QPi', 'QTr',
-  'KCo', 'KCa', 'KPi', 'KTr'
-]
+import './App.css'
 
 class App extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      playerCards: [],
-      dealerCards: [],
+      cards: ['2💔', '2🍀', '2🔶', '2🖤', '3💔', '3🍀',
+        '3🔶', '3🖤', '4💔', '4🍀', '4🔶', '4🖤',
+        '5💔', '5🍀', '5🔶', '5🖤', '6💔', '6🍀',
+        '6🔶', '6🖤', '7💔', '7🍀', '7🔶', '7🖤',
+        '8💔', '8🍀', '8🔶', '8🖤', '9💔', '9🍀',
+        '9🔶', '9🖤', '10💔', '10🍀', '10🔶', '10🖤',
+        '11💔', '11🍀', '11🔶', '11🖤', 'J💔', 'J🍀',
+        'J🔶', 'J🖤', 'Q💔', 'Q🍀', 'Q🔶', 'Q🖤',
+        'K💔', 'K🍀', 'K🔶', 'K🖤'],
+      startingCards: [],
+      newCard: '',
+      // suits : [❤🖤]
       totalPlayer: '',
-      totalBanque: '',
-      start: false,
-      gameEnd: false
+      totalBanque: []
     }
   }
 
   componentDidMount() {
-    // desk = () => {
+    let array = [];
+    for (let i = 0; i < 2; i++) {
+      const randomCards = Math.floor(Math.random() * this.state.cards.length);
+      array.push(this.state.cards[randomCards])
+      // this.setState({ startingCards: [...this.state.startingCards, 2] })
+    }
+    this.setState({ startingCards: array })
+    // this.setState({ totalBanque: array })
+    // if (condition) {
 
-    //     return  newCard(desk)
     // }
-
+    // const randomCards2 = Math.floor(Math.random() * this.state.cards.length - 1) + 1;
+    // this.setState({ startingCards: this.state.cards[randomCards] })
   }
-
-
-  newCard = () => {
-    const randomCards = Math.floor(Math.random() * deck.length);
-    return deck[randomCards];
-  }
-
-
   calcul = () => {
 
   }
+  // newCard = () => {
+  //   const new = Math.floor(Math.random() * this.state.cards.length)
+  // }
 
   clickStop = (ele) => {
     ele.preventDefault()
@@ -56,35 +56,32 @@ class App extends Component {
 
   clickContinue = (e) => {
     e.preventDefault()
-
-    const randomCard = Math.floor(Math.random() * deck.length);
-    this.setState({ newCard: [...this.state.newCard, deck[randomCard]] })
+    const newCard = Math.floor(Math.random() * this.state.cards.length);
+    this.setState({ startingCards: [...this.state.startingCards, this.state.cards[newCard]] })
   }
 
   render() {
-
-
+    console.log('cards', this.state.startingCards);
+    console.log('banque', this.state.totalBanque);
     return (
       <>
         <h1>Black Jack Game</h1>
+        <div className='container'>
 
-        <Interfacer
-          containerPlayer={
-            <Cards startCard={this.state.newCard} />
-          }
+          <div className='player'>
+            {this.state.startingCards.map((el, index) => (
+              <Cards key={index} startCard={el} />
+            ))}
+          </div>
+          <div className='bank'>
+            {this.state.totalBanque.map((el, index) => (
+              <Cards key={index} startCard={el} />
+            ))}
+          </div>
 
-          containerDealer={
+          <Button clickContinue={this.clickContinue} clickStop={this.clickStop} />
 
-          }
-
-          containerButtons={
-            <Button clickContinue={this.clickContinue} />
-          }
-
-
-
-
-        />
+        </div>
       </>
     )
   }
