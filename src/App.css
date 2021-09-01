@@ -2,3 +2,8 @@ div .container {
     display: flex;
     justify-content: space-between;
 }
+
+div .cart {
+    font-size: 46px;
+    border: double;
+}
